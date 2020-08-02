@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cam 4</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-storage.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-database.js"></script>
+  		<style type="text/css">
+  			.cool::after{
+  				content: ' ';
+  				display: block;
+  				width: 0;
+  				height:2px;
+  				background: #fff;
+  				transition: width .3s;
+  			}
+  			.cool:hover::after{
+  				width: 100%;
+  				transition: width .3s;
+  			}
+  		</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg bg-dark text-white">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li class="active">
+					<a href="MainPage.html" class="navbar-brand" style="color: whitesmoke; text-decoration-style: wavy;">
+						SIH2020
+					</a>
+				</li>
+				<li>
+					<a href="cams.html" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+						Camera
+					</a>
+				</li>
+			</ul>
+			<div class="dropdown navbar-right">
+					<a class="btn btn-light bg-light text-black" id="btn-logout" href="index.html">LogOut</a>
+			</div>
+		</div>
+	</nav>
+	<div class="row container-fluid bg-3" id='show4' style="padding: 10px; margin: 10px;">
+	</div>
+	<script type="text/javascript" src="js/index.js"></script>
+			<script type="text/javascript">
+				firebase.auth().onAuthStateChanged(function(user){
+					if(!user){
+						window.location.href = "index.html";
+					}
+				})
+		db = firebase.database().ref().child('cam4');
+		db.on("value",function(data){
+			if(data.exists()){
+				var dataHTML = "";
+				dataHTML += "<table class='table'>";
+				dataHTML += "<thead>"
+			    dataHTML += "<tr>"
+			    dataHTML += "<th scope='col'> &nbsp &nbsp &nbsp &nbsp &nbsp Image</th>"
+			    dataHTML += "<th scope='col'>Properties</th>"
+			    dataHTML += "<th scope='col'>Status</th>"
+				dataHTML +=  "</tr>";
+		  		dataHTML += "</thead>";
+				data.forEach(function(single){
+					if(single.val().S == 0){
+							dataHTML += "<tbody>";
+							dataHTML += "<tr>";
+							dataHTML += "<td>";
+							dataHTML += "<div style='float:left; margin-top:12px; padding-left:40px; padding-right-20px'> <img width='200' height='100' src='";
+							dataHTML += single.val().URL;
+							dataHTML += "'/></div>";
+							dataHTML += "</td>";
+							dataHTML += "<td>";
+							dataHTML += "<div>";
+							dataHTML += "Date &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp - ";
+							dataHTML += single.val().Date;
+							dataHTML += "<br>";
+							dataHTML += "Time &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp - ";
+							dataHTML += single.val().Time;
+							dataHTML += "<br>";
+							dataHTML += "Tag &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp - ";
+							dataHTML += single.val().tag;
+							dataHTML+= "</div>";
+							dataHTML += "</td>";
+							dataHTML += "<td>";
+							dataHTML += "<button style='padding-right:20px;' class='form-control btn btn-light bg-dark text-white' onclick = updateRecord3('"+ single.key + "')>Mark Solved</button>";
+							dataHTML += "</div>";
+							dataHTML += "</td>";
+							dataHTML += "</tr>";
+							dataHTML += "</tbody>";
+					}
+				});	
+				dataHTML += "</table>";
+			}
+			$("#show4").html(dataHTML);
+		});
+		function updateRecord3(key){
+			data = {
+				S : 1
+			};
+			var ref = firebase.database().ref().child("cam4").child(key);
+			ref.update(data);
+		}
+	</script>
+	<script type="text/javascript" src="js/index.js"></script>
+			<script type="text/javascript">
+				firebase.auth().onAuthStateChanged(function(user){
+					if(!user){
+						window.location.href = "index.html";
+					}else{
+						window.alert("Click on Mark Solved (Button) if it is resolved");
+					}
+				})
+	</script>
+</body>
+</html>
