@@ -1,0 +1,78 @@
+body{
+    
+    background:black;  
+}
+.signin{
+    background-color: white;
+    color: black;
+    font-size: large;
+    font-weight: bold;
+}
+.left-data{
+    color: white;
+    padding-left: 150px;
+    padding-top: 100px;
+    position: relative;
+
+}
+.design{
+position: absolute;
+left:0;
+
+}
+.a{
+    position: absolute;
+    color: black;
+}
+.b{
+font-weight: normal;
+padding-top: 100px;
+}
+.c{
+    font-weight: lighter;
+    padding-top: 50px;
+}
+.d{
+    padding-top: 50px;
+
+}
+.row{
+    padding-top:100px;
+}
+.right-data{
+    position: relative;
+}
+.p{
+    position: absolute;
+    left: 100px;
+    z-index: 1;
+}
+.q{
+    position: absolute;
+    left: 130px;
+    top:30px;
+}
+.r{
+    position: absolute;
+    right: 30px;
+    top:100px;
+    z-index: 1;
+}
+.s{
+    position: absolute;
+    left: 530px;
+    top:130px;
+}
+.t{ 
+    position: absolute;
+    top:300px;
+    left: 100px;
+    z-index: 1;
+}
+    
+.u{
+    position: absolute;
+    left: 140px;
+   top:330px ;
+
+}
