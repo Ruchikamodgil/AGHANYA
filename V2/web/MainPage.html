@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Main</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-storage.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-database.js"></script>
+  		<style type="text/css">
+  			.m-10{
+  				margin: 20px;
+  				padding: 20px;
+  			}
+  		</style>
+</head>
+<body class="h-100">
+	<nav class="navbar navbar-expand-lg bg-dark text-white">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li class="active">
+					<a href="MainPage.html" class="navbar-brand" style="color: whitesmoke; text-decoration-style: wavy;">
+						SIH2020
+					</a>
+				</li>
+				<li>
+					<a href="cams.html" class="nav-link" style="color: whitesmoke; text-decoration-style: wavy;">
+						Camera
+					</a>
+				</li>
+			</ul>
+			<div class="dropdown navbar-right">
+					<a class="btn btn-light bg-light text-black" id="btn-logout" href="index.html">LogOut</a>
+			</div>
+		</div>
+	</nav>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript">
+		firebase.auth().onAuthStateChanged(function(user){
+			if(!user){
+				window.location.href = "index.html";
+			}
+		})
+	</script>
+</body>
+</html>

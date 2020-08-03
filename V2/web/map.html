@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height:80%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase--auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDienGaKvTKGuSgKIFsU1pupYC1DABpeYk",
+    authDomain: "aghanya-test-py.firebaseapp.com",
+    databaseURL: "https://aghanya-test-py.firebaseio.com",
+    projectId: "aghanya-test-py",
+    storageBucket: "aghanya-test-py.appspot.com",
+    messagingSenderId: "356482709357",
+    appId: "1:356482709357:web:ba6a50f651806c23660c64",
+    measurementId: "G-688BED1Y8M"
+  };
+   // Initialize Firebase
+   firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    function initMap() {
+
+var map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 15,
+  center: {lat: 29.960419, lng: 76.867667}
+});
+var labels = ['1','2','3','4'];
+var markers = locations.map(function(location, i) {
+  const marker =  new google.maps.Marker({
+    position: location,
+    label: labels[i]
+  });
+  marker.addListener('click', async function() {
+      const camLabel = marker.getLabel()
+      var s = "nil";
+      if(camLabel==='A'){
+        var cam1 = firebase.database().ref("cam1").orderByKey();
+         await cam1 .once("value").then((snapshot) => {
+            snapshot.forEach(function(childSnapshot) {
+              var key = childSnapshot.key;
+              var childData = childSnapshot.val();
+              s += JSON.stringify(childData.Date);
+              s += JSON.stringify(childData.tag);
+              s += JSON.stringify(childData.Time);
+          });
+        });
+      }
+
+      else if(camLabel==='B'){
+        var cam2 = firebase.database().ref("cam2").orderByKey();
+         await cam2 .once("value").then((snapshot) => {
+            snapshot.forEach(function(childSnapshot) {
+              var key = childSnapshot.key;
+              var childData = childSnapshot.val();
+              s += JSON.stringify(childData.Date);
+              s += JSON.stringify(childData.tag);
+              s += JSON.stringify(childData.Time);
+          });
+        });
+      }
+
+      else if(camLabel==='C'){
+        var cam3 = firebase.database().ref("cam3").orderByKey();
+         await cam3 .once("value").then((snapshot) => {
+            snapshot.forEach(function(childSnapshot) {
+              var key = childSnapshot.key;
+              var childData = childSnapshot.val();
+              s += JSON.stringify(childData.Date);
+              s += JSON.stringify(childData.tag);
+              s += JSON.stringify(childData.Time);
+          });
+        });
+      }
+
+      else if(camLabel==='D'){
+        var cam4 = firebase.database().ref("cam4").orderByKey();
+         await cam4 .once("value").then((snapshot) => {
+            snapshot.forEach(function(childSnapshot) {
+              var key = childSnapshot.key;
+              var childData = childSnapshot.val();
+              s += JSON.stringify(childData.Date);
+              s += JSON.stringify(childData.tag);
+              s += JSON.stringify(childData.Time);
+          });
+        });
+      }
+      var infowindow = new google.maps.InfoWindow({
+          content: s
+      });
+      infowindow.open(map, marker);
+  });
+  return marker;
+});
+var markerCluster = new MarkerClusterer(map, markers,
+    {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+ }
+var locations = [
+        {lat: 29.965042, lng: 76.865231},
+        {lat: 29.965243, lng: 76.868683},
+        {lat: 29.965109, lng: 76.875464},
+        {lat: 29.959965, lng: 76.861758},    
+      ] 
+
+</script>
+<script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?AIzaSyC-rNp06O0kYd5FPn2oSvx8K_nbC9KoQg4&callback=initMap" >
+</script> 
+  
+</body> 
+</html>
