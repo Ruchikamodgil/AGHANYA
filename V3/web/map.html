@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Map</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-storage.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-database.js"></script>
+      <style type="text/css">
+      #map {
+        height: 90%;
+      }
+      html, body {
+        height:100%;
+        margin: 0;
+        padding: 0;
+      }
+        .cool::after{
+          content: ' ';
+          display: block;
+          width: 0;
+          height:2px;
+          background: #fff;
+          transition: width .3s;
+        }
+        .cool:hover::after{
+          width: 100%;
+          transition: width .3s;
+        }
+      </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-dark text-white">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <a href="MainPage.html" class="navbar-brand" style="color: whitesmoke; text-decoration-style: wavy;">
+            SIH2020
+          </a>
+        </li>
+        <li>
+          <a href="cams.html" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+            Camera
+          </a>
+        </li>
+        <li>
+          <a href="android_A.html" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+            Complaints
+          </a>
+        </li>
+        <li>
+          <a href="android_S.html" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+            Accepted Complaints
+          </a>
+        </li>
+        <li>
+          <a href="eme.html" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+            Emergency
+          </a>
+        </li>
+        <li>
+          <a href="map.html" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+            Map
+          </a>
+        </li>
+        <li>
+          <a href="https://public.tableau.com/views/AGHNYASMARTCITYDATAANALYTICS/Dashboard1?:language=en&:display_count=y&publish=yes&:origin=viz_share_link" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+            Data Analytics
+          </a>
+        </li>
+      </ul>
+      <div class="dropdown navbar-right">
+          <a class="btn btn-light bg-light text-black" id="btn-logout" href="index.html">LogOut</a>
+      </div>
+    </div>
+  </nav>
+  <div id="map"></div>
+
+      <script>
+        var firebaseConfig = {
+          apiKey: "AIzaSyDienGaKvTKGuSgKIFsU1pupYC1DABpeYk",
+          authDomain: "aghanya-test-py.firebaseapp.com",
+          databaseURL: "https://aghanya-test-py.firebaseio.com",
+          projectId: "aghanya-test-py",
+          storageBucket: "aghanya-test-py.appspot.com",
+          messagingSenderId: "356482709357",
+          appId: "1:356482709357:web:ba6a50f651806c23660c64",
+          measurementId: "G-688BED1Y8M"
+        };
+         firebase.initializeApp(firebaseConfig);
+          firebase.analytics();
+          var db = firebase.database().ref().child('ANDROID_WEBSIDE');
+          var locations = [
+              {lat: 29.965042, lng: 76.865231},
+              {lat: 29.965243, lng: 76.868683},
+              {lat: 29.965109, lng: 76.875464},
+              {lat: 29.959965, lng: 76.861758},    
+            ] 
+            var labels = ['1','2','3','4'];
+            db.on("value",function(data){
+              if(data.exists()){
+                data.forEach(function(single){
+                  if(single.val().S == 0){
+                          labels.push("");
+                          locations.push({lat: single.val().Lat, 
+                              lng: single.val().lon});
+                  }
+                }); 
+              }
+              initMap();
+           });
+      function initMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: {lat: 29.960419, lng: 76.867667}
+      });
+      var markers = locations.map(function(location, i) {
+        const marker =  new google.maps.Marker({
+          position: location,
+          label: labels[i]
+        });
+        return marker;
+      });
+      var markerCluster = new MarkerClusterer(map, markers,
+          {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+       }
+      </script>
+      <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?AIzaSyC-rNp06O0kYd5FPn2oSvx8K_nbC9KoQg4" >
+      </script> 
+  
+</body> 
+</html>

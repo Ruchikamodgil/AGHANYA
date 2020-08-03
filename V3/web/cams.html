@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cams</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-storage.js"></script>
+  		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-database.js"></script>
+  		<style type="text/css">
+  			.cool::after{
+  				content: ' ';
+  				display: block;
+  				width: 0;
+  				height:2px;
+  				background: #fff;
+  				transition: width .3s;
+  			}
+  			.cool:hover::after{
+  				width: 100%;
+  				transition: width .3s;
+  			}
+  		</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg bg-dark text-white">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li class="active">
+					<a href="MainPage.html" class="navbar-brand" style="color: whitesmoke; text-decoration-style: wavy;">
+						SIH2020
+					</a>
+				</li>
+				<li>
+					<a href="cams.html" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+						Camera
+					</a>
+				</li>
+				<li>
+					<a href="android_A.html" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+						Complaints
+					</a>
+				</li>
+				<li>
+					<a href="android_S.html" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+						Accepted Complaints
+					</a>
+				</li>
+				<li>
+					<a href="eme.html" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+						Emergency
+					</a>
+				</li>
+				<li>
+					<a href="map.html" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+						Map
+					</a>
+				</li>
+				<li>
+          			<a href="https://public.tableau.com/views/AGHNYASMARTCITYDATAANALYTICS/Dashboard1?:language=en&:display_count=y&publish=yes&:origin=viz_share_link" class="nav-link cool" style="color: whitesmoke; text-decoration-style: wavy;">
+		            Data Analytics
+		          </a>
+		        </li>
+			</ul>
+			<div class="dropdown navbar-right">
+					<a class="btn btn-light bg-light text-black" id="btn-logout" href="index.html">LogOut</a>
+			</div>
+		</div>
+	</nav>
+	<!-- <h4 align="center"> Click on Links for Access Data </h4> -->
+		<table class="table" style="margin-top: 10px">
+		  <thead>
+		    <tr>
+		      <th scope="col">Camera Number</th>
+		      <th scope="col">Location</th>
+		      <th scope="col">Link</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row" style="padding-left: 50px">1</th>
+		      <td>29.965042,76.87523</td>
+		      <td><a class="btn btn-light bg-dark text-white" href="cam1.html">Cam1</a></td>
+		    </tr>
+		    <tr>
+		      <th scope="row" style="padding-left: 50px">2</th>
+		      <td>29.965243,76.868683</td>
+		      <td><a class="btn btn-light bg-dark text-white" href="cam2.html">Cam2</a></td>
+		    </tr>
+		    <tr>
+		      <th scope="row" style="padding-left: 50px">3</th>
+		      <td>29.965109,76.875464</td>
+		      <td><a class="btn btn-light bg-dark text-white" href="cam3.html">Cam3</a></td>
+		    </tr>
+		    <tr>
+		      <th scope="row" style="padding-left: 50px">4</th>
+		      <td>29.964275,76.865226</td>
+		      <td><a class="btn btn-light bg-dark text-white" href="cam4.html">Cam4</a></td>
+		    </tr>
+		  </tbody>
+		</table>
+		<script type="text/javascript" src="js/index.js"></script>
+			<script type="text/javascript">
+				firebase.auth().onAuthStateChanged(function(user){
+					if(!user){
+						window.location.href = "index.html";
+					}else{
+						window.alert("Click on Link of Cam for Access Data\n(Link of Cam Present on Right Side)");
+					}
+				})
+			</script>
+</body>
+</html>
